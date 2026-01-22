@@ -3,23 +3,20 @@ from langchain_core.prompts import PromptTemplate
 # from langchain_openai import ChatOpenAI
 # from langchain_ollama import ChatOllama
 from langchain_groq import ChatGroq
- 
+import os
 
 load_dotenv()
-
 
 def main():
     print("Hello from langchain-course!")
     information = """
-    Elon Reeve Musk FRS (/ˈiːlɒn/ EE-lon; born June 28, 1971) is a businessman, known for his leadership of Tesla, SpaceX, X (formerly Twitter), and the Department of Government Efficiency (DOGE). Musk has been the wealthiest person in the world since 2021; as of May 2025, Forbes estimates his net worth to be US$424.7 billion.
+    Abel Makkonen Tesfaye[a] (Amharic: አቤል መኮንን ተስፋዬ; born February 16, 1990), known professionally as the Weeknd, is a Canadian singer-songwriter, record producer, and actor.[2][3] Regarded as an influential figure in popular music, he is known for his light-lyric tenor vocal range and falsetto, as well as his alternative R&B sound. His accolades include four Grammy Awards, 20 Billboard Music Awards, 22 Juno Awards, six American Music Awards, three MTV Video Music Awards, and a Latin Grammy Award.
 
-Born to a wealthy family in Pretoria, South Africa, Musk emigrated in 1989 to Canada. He received bachelor's degrees from the University of Pennsylvania in 1997 before moving to California, United States, to pursue business ventures. In 1995, Musk co-founded the software company Zip2. Following its sale in 1999, he co-founded X.com, an online payment company that later merged to form PayPal, which was acquired by eBay in 2002. That year, Musk also became an American citizen.
+    Tesfaye began releasing music anonymously in 2009. After co-founding the record label XO, he released three mixtapes—House of Balloons, Thursday, and Echoes of Silence—in 2011. He signed with Republic Records to compile the mixtapes into the compilation album Trilogy (2012), and release his debut studio album, Kiss Land (2013) the following year. Following collaborations and film soundtrack contributions from 2013 and 2014, Tesfaye blended alternative R&B with pop on his second and third studio albums, Beauty Behind the Madness (2015) and Starboy (2016); both debuted atop the US Billboard 200 and featured the Billboard Hot 100 number-one singles "Can't Feel My Face", "The Hills", "Starboy", and "Die for You".
 
-In 2002, Musk founded the space technology company SpaceX, becoming its CEO and chief engineer; the company has since led innovations in reusable rockets and commercial spaceflight. Musk joined the automaker Tesla as an early investor in 2004 and became its CEO and product architect in 2008; it has since become a leader in electric vehicles. In 2015, he co-founded OpenAI to advance artificial intelligence (AI) research but later left; growing discontent with the organization's direction and their leadership in the AI boom in the 2020s led him to establish xAI. In 2022, he acquired the social network Twitter, implementing significant changes and rebranding it as X in 2023. His other businesses include the neurotechnology company Neuralink, which he co-founded in 2016, and the tunneling company the Boring Company, which he founded in 2017.
+    Tesfaye returned to his alternative R&B sound for his debut EP, My Dear Melancholy (2018), featuring the US top-ten single "Call Out My Name". He began an album trilogy based on three time points, starting with the dream pop and new wave-inspired album After Hours (2020), which spawned the chart-topping singles "Heartless" and "Save Your Tears", as well as "Blinding Lights"—the best-performing song in the Billboard Hot 100's history and the most-streamed song on Spotify. The trilogy's latter two installments, Dawn FM (2022) and Hurry Up Tomorrow (2025), featured the US top-ten singles, "Take My Breath" and "Timeless". In 2023, he co-created and starred in the controversial HBO drama series The Idol, which was received as a critical failure.
 
-Musk was the largest donor in the 2024 U.S. presidential election, and is a supporter of global far-right figures, causes, and political parties. In early 2025, he served as senior advisor to United States president Donald Trump and as the de facto head of DOGE. After a public feud with Trump, Musk left the Trump administration and announced he was creating his own political party, the America Party.
-
-Musk's political activities, views, and statements have made him a polarizing figure, especially following the COVID-19 pandemic. He has been criticized for making unscientific and misleading statements, including COVID-19 misinformation and promoting conspiracy theories, and affirming antisemitic, racist, and transphobic comments. His acquisition of Twitter was controversial due to a subsequent increase in hate speech and the spread of misinformation on the service. His role in the second Trump administration attracted public backlash, particularly in response to DOGE.
+    Tesfaye is one of the best-selling artists of all time with estimated sales of over 75 million units,[4] and has amassed eight diamond-certified singles from the RIAA.[5] Time named him one of the world's most influential people in 2020. After Hours would go on to be the most-streamed R&B album in history, while his longest-spanning After Hours til Dawn Tour set the record for the highest-grossing R&B tour in history. Tesfaye co-founded the record label XO in 2011 and hosted the Apple Music 1 radio show Memento Mori from 2018 to 2022. In 2020, he launched the incubator HXOUSE of which he serves as a sleeping partner, and was appointed goodwill ambassador for the World Food Programme in 2021. He has also donated to various causes and expressed activism over racial equality and food security.    
     """
 
     summary_template = """
