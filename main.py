@@ -26,6 +26,7 @@ def main():
     """
 
 
+
     summary_prompt_template = PromptTemplate(
         input_variables=["information"], template=summary_template
     )
