@@ -23,7 +23,6 @@ def main():
     given the information {information} about a person I want you to create:
     1. A short summary
     2. two interesting facts about them
-    3. estimate his date and cause of death
     """
 
     summary_prompt_template = PromptTemplate(
