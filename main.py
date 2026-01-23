@@ -1,14 +1,25 @@
-import os
-
 from dotenv import load_dotenv
 
 load_dotenv()
+from langchain.agents import create_agent
+from langchain.tools import tool
+from langchain_core.messages import HumanMessage
+from langchain_groq import ChatGroq
 
-
+@tool
+def search(query:str) -> str:
+    """
+    Tool that searches over internet
+    Args:
+        query: The query to search for
+    Returns:
+        The search result
+    """
+    print(f"Searching for {query}")
+    return "Tokyo weather is sunny"
 
 def main():
     print("Hello from langchain-course!")
-    print(os.environ.get("OPENAI_API_KEY"))
 
 
 if __name__ == "__main__":
