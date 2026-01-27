@@ -5,21 +5,28 @@ from langchain.agents import create_agent
 from langchain.tools import tool
 from langchain_core.messages import SystemMessage, HumanMessage
 from langchain_groq import ChatGroq
+from tavily import TavilyClient
+from langchain_tavily import TavilySearch
 
-@tool
-def search(query: str) -> str:
-    """
-    Useful for searching weather and current events. Input should be a search query.
-    Args:
-        query: The query to search for
-    Returns:
-        The search result
-    """
-    print(f"Searching for {query}")
-    return "The current weather in Tokyo is sunny, around 25°C, with light wind."
+# Video 21 y 22
+# tavily = TavilyClient()
+
+# @tool
+# def search(query: str) -> str:
+#     """
+#     Useful for searching weather and current events. Input should be a search query.
+#     Args:
+#         query: The query to search for
+#     Returns:
+#         The search result
+#     """
+#     print(f"Searching for {query}")
+#     # return "The current weather in Tokyo is sunny, around 25°C, with light wind."
+#     return tavily.search(query=query)
 
 llm = ChatGroq(temperature=0.3, model="llama-3.1-8b-instant")
-tools = [search]
+# tools = [search]
+tools = [TavilySearch]
 agent = create_agent(model=llm, tools=tools)
 
 
@@ -29,7 +36,7 @@ def main():
 
     messages = [
         SystemMessage(content="You are a helpful assistant that uses tools accurately. When calling a tool, provide only the necessary JSON arguments."),
-        HumanMessage(content="Whats the weather like in Tokyo")
+        HumanMessage(content="Search for 3 jobs postings for an ai engineer using langchain in Madrid on linkedin and list their details")
     ]
     result = agent.invoke({"messages": messages})
 
