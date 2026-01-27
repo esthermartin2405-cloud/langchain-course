@@ -1,45 +1,33 @@
 from dotenv import load_dotenv
+
 load_dotenv()
 
-from langchain.agents import create_agent
-from langchain.tools import tool
-from langchain_core.messages import SystemMessage, HumanMessage
+from langchain_classic import hub
+from langchain_classic.agents import AgentExecutor
+from langchain_classic.agents.react.agent import create_react_agent
 from langchain_groq import ChatGroq
-from tavily import TavilyClient
 from langchain_tavily import TavilySearch
 
-# Video 21 y 22
-# tavily = TavilyClient()
+tools = [TavilySearch()]
+llm = ChatGroq(temperature=0, model="llama-3.1-8b-instant")
+react_prompt = hub.pull("hwchase17/react")
 
-# @tool
-# def search(query: str) -> str:
-#     """
-#     Useful for searching weather and current events. Input should be a search query.
-#     Args:
-#         query: The query to search for
-#     Returns:
-#         The search result
-#     """
-#     print(f"Searching for {query}")
-#     # return "The current weather in Tokyo is sunny, around 25°C, with light wind."
-#     return tavily.search(query=query)
+agent = create_react_agent(
+    llm=llm,
+    tools=tools,
+    prompt=react_prompt,
+)
 
-llm = ChatGroq(temperature=0.3, model="llama-3.1-8b-instant")
-# tools = [search]
-tools = [TavilySearch]
-agent = create_agent(model=llm, tools=tools)
-
+agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+chain = agent_executor
 
 def main():
-    print("Hello from langchain-course!")
-    # result = agent.invoke({"messages":HumanMessage(content="What is the weather in Tokyo?")})
+    result = chain.invoke(
+        input={
+            "input":"search for 3 job postings for an ai engineer using langchain in the bay area on linkedin and list their details"
+        }
 
-    messages = [
-        SystemMessage(content="You are a helpful assistant that uses tools accurately. When calling a tool, provide only the necessary JSON arguments."),
-        HumanMessage(content="Search for 3 jobs postings for an ai engineer using langchain in Madrid on linkedin and list their details")
-    ]
-    result = agent.invoke({"messages": messages})
-
+    )
     print(result)
 
 if __name__ == "__main__":
